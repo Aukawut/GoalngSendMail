@@ -1,0 +1,25 @@
+services:
+  api-mail:
+    image: api-mail
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    networks:
+      - app-network-mail
+    restart: always
+
+  nginx-ot:
+    image: nginx:latest
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d
+    depends_on:
+      - api-mail
+    ports:
+      - 3005:3005
+    restart: always
+    networks:
+      - app-network-mail
+
+networks:
+  app-network-mail:
+    driver: bridge
