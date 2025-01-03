@@ -14,6 +14,7 @@ func main() {
 	app.Use(cors.New())
 
 	app.Get("/", mail.SendMail)
+	app.Post("/send/mail")
 
 	log.Fatal(app.Listen(":3005"))
 }
